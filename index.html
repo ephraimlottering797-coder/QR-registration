@@ -14,7 +14,7 @@
       <div class="popup-emoji">🎁</div>
       <h2>Thank You!</h2>
       <p>Your registration has been received.<br>See you at <strong>Future Focus Day!</strong></p>
-      <button onclick="closePopup()">Close</button>
+      <button id="closePopupBtn">Close</button>
     </div>
   </div>
 
@@ -50,51 +50,73 @@
     </header>
 
     <!-- FORM CARD -->
-    <main class="form-card" id="form-section">
-      <h2 class="form-heading">Register Now</h2>
+    <main class="form-card">
+      <form id="registrationForm" novalidate>
+        <h2 class="form-heading">Register Now</h2>
 
-      <div class="field-group">
-        <label for="studentNumber">Student Number</label>
-        <input type="text" id="studentNumber" placeholder="e.g. 202312345" maxlength="20" />
-      </div>
+        <div class="field-group">
+          <label for="studentNumber">Student Number</label>
+          <input 
+            type="text" 
+            id="studentNumber" 
+            placeholder="e.g. 202312345" 
+            maxlength="20"
+            required 
+          />
+        </div>
 
-      <div class="field-group">
-        <label for="firstName">Name</label>
-        <input type="text" id="firstName" placeholder="Your name" />
-      </div>
+        <div class="field-group">
+          <label for="firstName">Name</label>
+          <input 
+            type="text" 
+            id="firstName" 
+            placeholder="Your name"
+            required 
+          />
+        </div>
 
-      <div class="field-group">
-        <label for="lastName">Surname</label>
-        <input type="text" id="lastName" placeholder="Your surname" />
-      </div>
+        <div class="field-group">
+          <label for="lastName">Surname</label>
+          <input 
+            type="text" 
+            id="lastName" 
+            placeholder="Your surname"
+            required 
+          />
+        </div>
 
-      <div class="field-group">
-        <label for="program">Program</label>
-        <select id="program" onchange="toggleOtherProgram(this.value)">
-          <option value="" disabled selected>Select your program</option>
-          <option>Information Technology</option>
-          <option>Business Administration</option>
-          <option>Engineering</option>
-          <option>Education</option>
-          <option>Health Sciences</option>
-          <option>Law</option>
-          <option>Social Sciences</option>
-          <option>Natural Sciences</option>
-          <option>Arts & Humanities</option>
-          <option>Other</option>
-        </select>
-      </div>
+        <div class="field-group">
+          <label for="program">Program</label>
+          <select id="program" required>
+            <option value="" disabled selected>Select your program</option>
+            <option value="Information Technology">Information Technology</option>
+            <option value="Business Administration">Business Administration</option>
+            <option value="Engineering">Engineering</option>
+            <option value="Education">Education</option>
+            <option value="Health Sciences">Health Sciences</option>
+            <option value="Law">Law</option>
+            <option value="Social Sciences">Social Sciences</option>
+            <option value="Natural Sciences">Natural Sciences</option>
+            <option value="Arts & Humanities">Arts & Humanities</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
 
-      <div class="field-group hidden" id="other-program-group">
-        <label for="otherProgram">Please specify your program</label>
-        <input type="text" id="otherProgram" placeholder="Type your program here" />
-      </div>
+        <div class="field-group hidden" id="other-program-group">
+          <label for="otherProgram">Please specify your program</label>
+          <input 
+            type="text" 
+            id="otherProgram" 
+            placeholder="Type your program here"
+          />
+        </div>
 
-      <div id="error-msg" class="error-msg hidden"></div>
+        <div id="error-msg" class="error-msg hidden"></div>
 
-      <button class="btn-register" id="registerBtn" onclick="handleRegister()">
-        Confirm My Spot 🚀
-      </button>
+        <button type="submit" class="btn-register" id="registerBtn">
+          Confirm My Spot 🚀
+        </button>
+      </form>
 
       <a href="admin.html" class="admin-link">View Registered Students →</a>
     </main>
