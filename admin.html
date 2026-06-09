@@ -8,80 +8,159 @@
 </head>
 <body>
 
-  <div class="page-wrapper admin-page">
+  <!-- ── LOCK SCREEN ── -->
+  <div id="lock-screen">
+    <div class="lock-card">
+      <img src="logo.png" alt="Orbit TVET College Logo" class="lock-logo" />
+      <h2 class="lock-title">Admin Access</h2>
+      <p class="lock-sub">Orbit TVET College &nbsp;|&nbsp; Future Focus Day</p>
+      <p class="lock-hint">Enter your admin code to continue</p>
 
-    <header class="hero admin-hero">
+      <div class="pin-dots" id="pin-dots">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
 
-      <!-- COLLEGE LOGO & NAME -->
-      <div class="college-brand">
-        <img src="logo.png" alt="Orbit TVET College Logo" class="college-logo" />
-        <div class="college-name">
-          <span class="college-title">Orbit TVET College</span>
-          <span class="college-sub">Empowering Through Education</span>
+      <div id="lock-error" class="lock-error hidden">Incorrect code. Try again.</div>
+
+      <div class="numpad">
+        <button class="num-btn" onclick="pressNum('1')">1</button>
+        <button class="num-btn" onclick="pressNum('2')">2</button>
+        <button class="num-btn" onclick="pressNum('3')">3</button>
+        <button class="num-btn" onclick="pressNum('4')">4</button>
+        <button class="num-btn" onclick="pressNum('5')">5</button>
+        <button class="num-btn" onclick="pressNum('6')">6</button>
+        <button class="num-btn" onclick="pressNum('7')">7</button>
+        <button class="num-btn" onclick="pressNum('8')">8</button>
+        <button class="num-btn" onclick="pressNum('9')">9</button>
+        <button class="num-btn num-clear" onclick="clearPin()">✕</button>
+        <button class="num-btn" onclick="pressNum('0')">0</button>
+        <button class="num-btn num-enter" onclick="submitPin()">✓</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DASHBOARD (hidden until unlocked) ── -->
+  <div id="dashboard" class="hidden">
+    <div class="page-wrapper admin-page">
+
+      <header class="hero admin-hero">
+        <div class="college-brand">
+          <img src="logo.png" alt="Orbit TVET College Logo" class="college-logo" />
+          <div class="college-name">
+            <span class="college-title">Orbit TVET College</span>
+            <span class="college-sub">Empowering Through Education</span>
+          </div>
         </div>
-      </div>
-
-      <div class="hero-divider"></div>
-
-      <h1 class="hero-title">
-        <span class="hero-highlight">Future Focus Day</span>
-      </h1>
-      <p class="hero-sub">Registered Students Dashboard</p>
-      <div class="seat-tracker">
-        <div class="seat-bar-wrap">
-          <div class="seat-bar" id="seat-bar"></div>
+        <div class="hero-divider"></div>
+        <h1 class="hero-title">
+          <span class="hero-highlight">Future Focus Day</span>
+        </h1>
+        <p class="hero-sub">Registered Students Dashboard</p>
+        <div class="seat-tracker">
+          <div class="seat-bar-wrap">
+            <div class="seat-bar" id="seat-bar"></div>
+          </div>
+          <p class="seat-label">
+            <span id="seat-count">0</span> / 200 registered
+          </p>
         </div>
-        <p class="seat-label">
-          <span id="seat-count">0</span> / 200 registered
-        </p>
-      </div>
-    </header>
+      </header>
 
-    <main class="admin-main">
-
-      <!-- CONTROLS -->
-      <div class="admin-controls">
-        <input type="text" id="searchInput" placeholder="🔍 Search by name, number or program…" oninput="renderTable()" />
-        <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
-        <button class="btn-clear" onclick="clearAll()">🗑 Clear All Data</button>
-      </div>
-
-      <!-- TABLE -->
-      <div class="table-wrap">
-        <table id="studentTable">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Student Number</th>
-              <th>Full Name</th>
-              <th>Program</th>
-              <th>Registered At</th>
-            </tr>
-          </thead>
-          <tbody id="tableBody">
-          </tbody>
-        </table>
-        <div id="empty-state" class="empty-state hidden">
-          No students registered yet.
+      <main class="admin-main">
+        <div class="admin-controls">
+          <input type="text" id="searchInput" placeholder="🔍 Search by name, number or program…" oninput="renderTable()" />
+          <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+          <button class="btn-clear" onclick="clearAll()">🗑 Clear All Data</button>
+          <button class="btn-lock" onclick="lockAdmin()">🔒 Lock</button>
         </div>
-      </div>
 
-      <a href="index.html" class="admin-link" style="text-align:center; display:block; margin-top:2rem;">
-        ← Back to Registration
-      </a>
-    </main>
+        <div class="table-wrap">
+          <table id="studentTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Student Number</th>
+                <th>Full Name</th>
+                <th>Program</th>
+                <th>Registered At</th>
+              </tr>
+            </thead>
+            <tbody id="tableBody"></tbody>
+          </table>
+          <div id="empty-state" class="empty-state hidden">
+            No students registered yet.
+          </div>
+        </div>
 
-    <footer class="page-footer">
-      <img src="logo.png" alt="" class="footer-logo" />
-      Orbit TVET College &nbsp;|&nbsp; Future Focus Day
-    </footer>
+        <a href="index.html" class="admin-link" style="text-align:center; display:block; margin-top:2rem;">
+          ← Back to Registration
+        </a>
+      </main>
+
+      <footer class="page-footer">
+        <img src="logo.png" alt="" class="footer-logo" />
+        Orbit TVET College &nbsp;|&nbsp; Future Focus Day
+      </footer>
+    </div>
   </div>
 
   <script src="app.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      updateCounter();
-      renderTable();
+    const ADMIN_CODE = '12345';
+    let pinEntry = '';
+
+    function pressNum(n) {
+      if (pinEntry.length >= 5) return;
+      pinEntry += n;
+      updateDots();
+      if (pinEntry.length === 5) setTimeout(submitPin, 200);
+    }
+
+    function clearPin() {
+      pinEntry = '';
+      updateDots();
+      document.getElementById('lock-error').classList.add('hidden');
+    }
+
+    function updateDots() {
+      const dots = document.querySelectorAll('#pin-dots span');
+      dots.forEach((d, i) => {
+        d.classList.toggle('filled', i < pinEntry.length);
+      });
+    }
+
+    function submitPin() {
+      if (pinEntry === ADMIN_CODE) {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('dashboard').classList.remove('hidden');
+        updateCounter();
+        renderTable();
+      } else {
+        document.getElementById('lock-error').classList.remove('hidden');
+        const dots = document.querySelectorAll('#pin-dots span');
+        dots.forEach(d => d.classList.add('shake'));
+        setTimeout(() => {
+          dots.forEach(d => d.classList.remove('shake'));
+          pinEntry = '';
+          updateDots();
+        }, 600);
+      }
+    }
+
+    function lockAdmin() {
+      pinEntry = '';
+      updateDots();
+      document.getElementById('lock-error').classList.add('hidden');
+      document.getElementById('dashboard').classList.add('hidden');
+      document.getElementById('lock-screen').style.display = 'flex';
+    }
+
+    // Allow keyboard input on lock screen
+    document.addEventListener('keydown', (e) => {
+      if (document.getElementById('lock-screen').style.display === 'none') return;
+      if (e.key >= '0' && e.key <= '9') pressNum(e.key);
+      if (e.key === 'Backspace') clearPin();
+      if (e.key === 'Enter') submitPin();
     });
   </script>
 </body>
