@@ -1,4 +1,4 @@
-// ─── CONSTANTS ───────────────────────────────────────────────
+ // ─── CONSTANTS ───────────────────────────────────────────────
 const MAX_SEATS = 200;
 const STORAGE_KEY = 'ffd_students';
 
@@ -39,34 +39,29 @@ function updateCounter() {
   }
 }
 
-// ─── TOGGLE OTHER PROGRAM FIELD ───────────────────────────────
-function toggleOtherProgram() {
-  const programSelect = document.getElementById('program');
-  const otherProgramGroup = document.getElementById('other-program-group');
-  const otherInput = document.getElementById('otherProgram');
-
-  if (programSelect.value === 'other') {
-    // Show the custom program field with smooth slide-in
-    otherProgramGroup.classList.remove('hidden');
-    // Auto-focus for better UX
-    setTimeout(() => otherInput.focus(), 100);
+// ─── TOGGLE "OTHER" PROGRAM FIELD ────────────────────────────
+function toggleOtherProgram(value) {
+  const group = document.getElementById('other-program-group');
+  if (value === 'Other') {
+    group.classList.remove('hidden');
+    document.getElementById('otherProgram').focus();
   } else {
-    // Hide and clear the custom program field
-    otherProgramGroup.classList.add('hidden');
-    otherInput.value = '';
+    group.classList.add('hidden');
+    document.getElementById('otherProgram').value = '';
   }
 }
 
 // ─── REGISTRATION HANDLER ─────────────────────────────────────
-function handleRegister(e) {
-  e.preventDefault(); // Prevent form default submission
-
+function handleRegister() {
   const studentNumber = document.getElementById('studentNumber').value.trim();
-  const firstName = document.getElementById('firstName').value.trim();
-  const lastName = document.getElementById('lastName').value.trim();
-  const program = document.getElementById('program').value;
-  const otherProgram = document.getElementById('otherProgram').value.trim();
-  const errEl = document.getElementById('error-msg');
+  const firstName     = document.getElementById('firstName').value.trim();
+  const lastName      = document.getElementById('lastName').value.trim();
+  const programSelect = document.getElementById('program').value;
+  const otherProgram  = document.getElementById('otherProgram').value.trim();
+  const errEl         = document.getElementById('error-msg');
+
+  // Resolve final program value
+  const program = programSelect === 'Other' ? otherProgram : programSelect;
 
   // Clear previous errors
   errEl.classList.add('hidden');
@@ -74,14 +69,11 @@ function handleRegister(e) {
 
   // Validation
   if (!studentNumber) return showError('Please enter your student number.');
-  if (!firstName) return showError('Please enter your first name.');
-  if (!lastName) return showError('Please enter your last name.');
-  if (!program) return showError('Please select your program.');
-  
-  // Validate custom program if "Other" is selected
-  if (program === 'other' && !otherProgram) {
-    return showError('Please specify your program.');
-  }
+  if (!firstName)     return showError('Please enter your name.');
+  if (!lastName)      return showError('Please enter your surname.');
+  if (!programSelect) return showError('Please select your program.');
+  if (programSelect === 'Other' && !otherProgram)
+                      return showError('Please specify your program.');
 
   const students = getStudents();
 
@@ -95,15 +87,12 @@ function handleRegister(e) {
     return showError('This student number is already registered.');
   }
 
-  // Use custom program if "Other" is selected, otherwise use the dropdown value
-  const finalProgram = program === 'other' ? otherProgram : program;
-
   // Save
   const entry = {
     id: Date.now(),
     studentNumber,
     name: `${firstName} ${lastName}`,
-    program: finalProgram,
+    program,
     registeredAt: new Date().toLocaleString('en-ZA', { dateStyle: 'medium', timeStyle: 'short' })
   };
 
@@ -111,7 +100,11 @@ function handleRegister(e) {
   saveStudents(students);
 
   // Reset form
-  document.getElementById('registrationForm').reset();
+  document.getElementById('studentNumber').value = '';
+  document.getElementById('firstName').value = '';
+  document.getElementById('lastName').value = '';
+  document.getElementById('program').value = '';
+  document.getElementById('otherProgram').value = '';
   document.getElementById('other-program-group').classList.add('hidden');
 
   updateCounter();
@@ -136,9 +129,9 @@ function closePopup() {
 // ─── ADMIN TABLE ──────────────────────────────────────────────
 function renderTable() {
   const students = getStudents();
-  const query = (document.getElementById('searchInput')?.value || '').toLowerCase();
-  const tbody = document.getElementById('tableBody');
-  const empty = document.getElementById('empty-state');
+  const query    = (document.getElementById('searchInput')?.value || '').toLowerCase();
+  const tbody    = document.getElementById('tableBody');
+  const empty    = document.getElementById('empty-state');
 
   if (!tbody) return;
 
@@ -179,8 +172,8 @@ function exportCSV() {
 
   const csv = rows.map(r => r.map(c => `"${c}"`).join(',')).join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
   a.href = url;
   a.download = 'FutureFocusDay_Registrations.csv';
   a.click();
@@ -196,31 +189,7 @@ function clearAll() {
   }
 }
 
-// ─── EVENT LISTENERS ──────────────────────────────────────────
+// ─── INIT ─────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
   updateCounter();
-
-  // Form submission
-  const registrationForm = document.getElementById('registrationForm');
-  if (registrationForm) {
-    registrationForm.addEventListener('submit', handleRegister);
-  }
-
-  // Program selection toggle
-  const programSelect = document.getElementById('program');
-  if (programSelect) {
-    programSelect.addEventListener('change', toggleOtherProgram);
-  }
-
-  // Close popup button
-  const closePopupBtn = document.getElementById('closePopupBtn');
-  if (closePopupBtn) {
-    closePopupBtn.addEventListener('click', closePopup);
-  }
-
-  // Search input for admin page
-  const searchInput = document.getElementById('searchInput');
-  if (searchInput) {
-    searchInput.addEventListener('input', renderTable);
-  }
 });
