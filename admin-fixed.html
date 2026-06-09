@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Future Focus Day — Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="page-wrapper admin-page">
+
+    <header class="hero admin-hero">
+      <h1 class="hero-title">
+        <span class="hero-highlight">Future Focus Day</span>
+      </h1>
+      <p class="hero-sub">Registered Students Dashboard</p>
+      <div class="seat-tracker">
+        <div class="seat-bar-wrap">
+          <div class="seat-bar" id="seat-bar"></div>
+        </div>
+        <p class="seat-label">
+          <span id="seat-count">0</span> / 200 registered
+        </p>
+      </div>
+
+      <div class="qr-panel">
+        <h2>Student QR Registration</h2>
+        <p>Scan this code to open the student registration form. The student page must be opened through this QR link.</p>
+        <img id="qrImage" class="qr-image" alt="QR code to student registration" />
+        <p class="qr-note">Or use this link directly:</p>
+        <a id="qrLink" class="qr-link" target="_blank" rel="noopener">Loading registration link...</a>
+      </div>
+    </header>
+
+    <main class="admin-main">
+
+      <!-- CONTROLS -->
+      <div class="admin-controls">
+        <input type="text" id="searchInput" placeholder="🔍 Search by name or program…" oninput="renderTable()" />
+        <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+        <button class="btn-clear" onclick="clearAll()">🗑 Clear All Data</button>
+      </div>
+
+      <!-- TABLE -->
+      <div class="table-wrap">
+        <table id="studentTable">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Full Name</th>
+              <th>Program</th>
+              <th>Registered At</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+          </tbody>
+        </table>
+        <div id="empty-state" class="empty-state hidden">
+          No students registered yet.
+        </div>
+      </div>
+
+      <a href="index.html" class="admin-link" style="text-align:center; display:block; margin-top:2rem;">
+        ← Back to Registration
+      </a>
+    </main>
+
+    <footer class="page-footer">
+      Future Focus Day &nbsp;|&nbsp; Admin View
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+  <script>
+    function renderQrCode() {
+      const qrImage = document.getElementById('qrImage');
+      const qrLink = document.getElementById('qrLink');
+      if (!qrImage || !qrLink) return;
+
+      const currentUrl = window.location.href;
+      const targetUrl = currentUrl.replace(/admin-fixed\.html(?:\?.*)?$/, 'index.html?scan=true');
+      const qrSrc = 'https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=' + encodeURIComponent(targetUrl);
+
+      qrImage.src = qrSrc;
+      qrLink.textContent = targetUrl;
+      qrLink.href = targetUrl;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateCounter && updateCounter();
+      renderTable && renderTable();
+      renderQrCode();
+    });
+  </script>
+</body>
+</html>
