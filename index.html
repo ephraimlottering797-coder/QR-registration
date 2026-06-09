@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -59,18 +59,18 @@
       </div>
 
       <div class="field-group">
-        <label for="firstName">First Name</label>
-        <input type="text" id="firstName" placeholder="Your first name" />
+        <label for="firstName">Name</label>
+        <input type="text" id="firstName" placeholder="Your name" />
       </div>
 
       <div class="field-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" id="lastName" placeholder="Your last name" />
+        <label for="lastName">Surname</label>
+        <input type="text" id="lastName" placeholder="Your surname" />
       </div>
 
       <div class="field-group">
         <label for="program">Program</label>
-        <select id="program">
+        <select id="program" onchange="toggleOtherProgram(this.value)">
           <option value="" disabled selected>Select your program</option>
           <option>Information Technology</option>
           <option>Business Administration</option>
@@ -83,6 +83,11 @@
           <option>Arts & Humanities</option>
           <option>Other</option>
         </select>
+      </div>
+
+      <div class="field-group hidden" id="other-program-group">
+        <label for="otherProgram">Please specify your program</label>
+        <input type="text" id="otherProgram" placeholder="Type your program here" />
       </div>
 
       <div id="error-msg" class="error-msg hidden"></div>
