@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Future Focus Day — Registration</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- THANK YOU POPUP -->
+  <div id="popup-overlay" class="popup-overlay hidden">
+    <div class="popup-box">
+      <div class="popup-emoji">🎁</div>
+      <h2>Thank You!</h2>
+      <p>Your registration has been received.<br>See you at <strong>Future Focus Day!</strong></p>
+      <button onclick="closePopup()">Close</button>
+    </div>
+  </div>
+
+  <!-- LOCKED OVERLAY -->
+  <div id="locked-overlay" class="locked-overlay hidden">
+    <div class="locked-box">
+      <div class="lock-icon">🔒</div>
+      <h2>Registration Closed</h2>
+      <p>All <strong>200 spots</strong> have been filled.<br>Registration is now locked.</p>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <!-- HEADER -->
+    <header class="hero">
+      <div class="hero-badge">📅 Registration Open</div>
+      <h1 class="hero-title">
+        Welcome to<br/>
+        <span class="hero-highlight">Future Focus Day</span>
+      </h1>
+      <p class="hero-sub">Secure your seat — only 200 spots available</p>
+
+      <!-- SEAT COUNTER -->
+      <div class="seat-tracker">
+        <div class="seat-bar-wrap">
+          <div class="seat-bar" id="seat-bar"></div>
+        </div>
+        <p class="seat-label">
+          <span id="seat-count">0</span> / 200 registered
+        </p>
+      </div>
+    </header>
+
+    <!-- FORM CARD -->
+    <main class="form-card" id="form-section">
+      <h2 class="form-heading">Register Now</h2>
+
+      <div class="field-group">
+        <label for="studentNumber">Student Number</label>
+        <input type="text" id="studentNumber" placeholder="e.g. 202312345" maxlength="20" />
+      </div>
+
+      <div class="field-group">
+        <label for="firstName">Name</label>
+        <input type="text" id="firstName" placeholder="Your name" />
+      </div>
+
+      <div class="field-group">
+        <label for="lastName">Surname</label>
+        <input type="text" id="lastName" placeholder="Your surname" />
+      </div>
+
+      <div class="field-group">
+        <label for="program">Program</label>
+        <select id="program" onchange="toggleOtherProgram(this.value)">
+          <option value="" disabled selected>Select your program</option>
+          <option>Information Technology</option>
+          <option>Business Administration</option>
+          <option>Engineering</option>
+          <option>Education</option>
+          <option>Health Sciences</option>
+          <option>Law</option>
+          <option>Social Sciences</option>
+          <option>Natural Sciences</option>
+          <option>Arts & Humanities</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="field-group hidden" id="other-program-group">
+        <label for="otherProgram">Please specify your program</label>
+        <input type="text" id="otherProgram" placeholder="Type your program here" />
+      </div>
+
+      <div id="error-msg" class="error-msg hidden"></div>
+
+      <button class="btn-register" id="registerBtn" onclick="handleRegister()">
+        Confirm My Spot 🚀
+      </button>
+
+      <a href="admin.html" class="admin-link">View Registered Students →</a>
+    </main>
+
+    <footer class="page-footer">
+      Future Focus Day &nbsp;|&nbsp; Powered by your institution
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
