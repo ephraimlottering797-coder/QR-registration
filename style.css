@@ -37,7 +37,7 @@ body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background: rgba(12, 15, 26, 0.92);
+  background: rgba(12, 15, 26, 0.75);
   pointer-events: none;
   z-index: 0;
 }
@@ -592,3 +592,177 @@ tbody td {
   padding: 3rem 1rem;
   font-size: 0.95rem;
 }
+
+/* ─── ADMIN LOCK SCREEN ───────────────────────────────────── */
+#lock-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--bg);
+  background-image: url('logo.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+#lock-screen::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(12, 15, 26, 0.75);
+  pointer-events: none;
+}
+
+.lock-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+  width: 100%;
+  max-width: 340px;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+.lock-logo {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 14px;
+  padding: 8px;
+  margin-bottom: 1rem;
+}
+
+.lock-title {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 0.25rem;
+}
+
+.lock-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+.lock-hint {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+}
+
+/* PIN dots */
+.pin-dots {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 0.75rem;
+}
+
+.pin-dots span {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: transparent;
+  transition: all 0.15s;
+}
+
+.pin-dots span.filled {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: scale(1.15);
+}
+
+.pin-dots span.shake {
+  animation: shake 0.4s ease;
+  background: #ef4444;
+  border-color: #ef4444;
+}
+
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  40%      { transform: translateX(6px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+
+.lock-error {
+  font-size: 0.82rem;
+  color: #fca5a5;
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.3);
+  border-radius: 8px;
+  padding: 0.4rem 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+/* Numpad */
+.numpad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.num-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  font-family: var(--font-head);
+}
+
+.num-btn:hover {
+  background: var(--border);
+}
+
+.num-btn:active {
+  transform: scale(0.93);
+}
+
+.num-clear {
+  color: #fca5a5;
+  font-size: 1rem;
+}
+
+.num-enter {
+  background: linear-gradient(135deg, #6c63ff, #a78bfa);
+  border-color: transparent;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.num-enter:hover {
+  opacity: 0.88;
+  background: linear-gradient(135deg, #6c63ff, #a78bfa);
+}
+
+/* Lock button in dashboard */
+.btn-lock {
+  padding: 0.65rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--surface2);
+  color: var(--muted);
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.btn-lock:hover { opacity: 0.8; }
