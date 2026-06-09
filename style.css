@@ -1,4 +1,4 @@
-/* ─── TOKENS ──────────────────────────────────────────────── */
+ /* ─── TOKENS ──────────────────────────────────────────────── */
 :root {
   --bg:         #0c0f1a;
   --surface:    #141828;
@@ -37,10 +37,69 @@ body {
   max-width: 960px;
 }
 
+/* ─── COLLEGE BRAND ───────────────────────────────────────── */
+.college-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.college-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+  border-radius: 12px;
+  background: #fff;
+  padding: 6px;
+  flex-shrink: 0;
+}
+
+.college-name {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.college-title {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.college-sub {
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+}
+
+.hero-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, #6c63ff, #a78bfa);
+  border-radius: 999px;
+  margin: 0 auto 1.75rem;
+}
+
+.footer-logo {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  background: #fff;
+  border-radius: 4px;
+  padding: 2px;
+  vertical-align: middle;
+  margin-right: 6px;
+}
+
 /* ─── HERO ────────────────────────────────────────────────── */
 .hero {
   text-align: center;
-  padding: 3rem 1rem 2.5rem;
+  padding: 2rem 1rem 2.5rem;
 }
 
 .hero-badge {
@@ -134,38 +193,6 @@ body {
 /* ─── FIELDS ──────────────────────────────────────────────── */
 .field-group {
   margin-bottom: 1.2rem;
-  animation: slideIn 0.3s ease-out forwards;
-}
-
-.field-group.hidden {
-  animation: slideOut 0.3s ease-out forwards;
-  pointer-events: none;
-}
-
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-    max-height: 0;
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    max-height: 200px;
-  }
-}
-
-@keyframes slideOut {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-    max-height: 200px;
-  }
-  to {
-    opacity: 0;
-    transform: translateY(-10px);
-    max-height: 0;
-  }
 }
 
 .field-group label {
@@ -371,7 +398,11 @@ body {
   color: var(--muted);
   font-size: 0.78rem;
   margin-top: 2.5rem;
-  opacity: 0.5;
+  opacity: 0.6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
 }
 
 /* ────────────────────────────────────────────────────────────
